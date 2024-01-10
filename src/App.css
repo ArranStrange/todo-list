@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 20px;
   width: 100vw;
-  height: scroll;
+  height: fit-content;
   background-color: rgb(32, 31, 31);
   margin: -10px;
 }
@@ -70,8 +70,8 @@
 .todoList {
   display: flex;
   flex-direction: column;
-  height: fit-content;
-  overflow-y: auto;
+  height: 320px;
+  overflow-y: scroll;
   background-color: rgb(32, 31, 31);
   z-index: 1;
   /* border: 2px solid #db3434; */
