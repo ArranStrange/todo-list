@@ -30,19 +30,21 @@ const App: FC = () => {
 
   const addTask = (): void => {
     const newTask = { taskName: task, taskDate: taskDate, deadline: deadline };
-    setTodoList([...todoList, newTask]);
-    setTask("");
-    setDeadline("Not Set"); // Clear the deadline state
+    setTodoList([...todoList, newTask]); // CREATES NEW OBJECT WITH INPUTTED DATA
+    setTask(""); // CLEAR TASK STATE
+    setDeadline("Not Set"); // CLEAR DEADLINE STATE
+    // console.log(newTask);
   };
 
   const toggleEdit = (taskName: string): void => {
-    setEditingTask(editingTask === taskName ? null : taskName);
+    setEditingTask(editingTask === taskName ? null : taskName); // taskName ? null : taskName === else if statement
   };
 
   const updateTask = (taskName: string, updatedTask: ITask): void => {
     setTodoList((prevTasks) =>
       prevTasks.map((task) => (task.taskName === taskName ? updatedTask : task))
     );
+    // console.log(taskName);
     setEditingTask("");
   };
   const deleteTask = (taskNameToDelete: string): void => {
