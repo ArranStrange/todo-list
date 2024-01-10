@@ -33,6 +33,7 @@ const TodoTask: React.FC<Props> = ({
 
   return (
     <div className="tasks">
+      hello
       <div className="content">
         {/* STATE ON EDIT */}
         {editing ? (
@@ -42,6 +43,7 @@ const TodoTask: React.FC<Props> = ({
               name="taskName"
               value={editedTask.taskName}
               onChange={handleChange}
+              onBlur={handleSave}
             />
             <input
               type="date"
