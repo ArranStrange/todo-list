@@ -49,12 +49,14 @@ const TodoTask: React.FC<Props> = ({
               name="taskDate"
               value={editedTask.taskDate}
               onChange={handleChange}
+              onBlur={handleSave}
             />
             <input
               type="date"
               name="deadline"
               value={editedTask.deadline}
               onChange={handleChange}
+              onBlur={handleSave}
             />
             <button onClick={handleSave}>Save</button>
             <button
