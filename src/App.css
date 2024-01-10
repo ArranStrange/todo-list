@@ -1,0 +1,181 @@
+.App {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(32, 31, 31);
+  margin: -10px;
+}
+
+.header-image {
+  width: 400px;
+  padding-top: 20px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header .inputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.header input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px;
+  font-size: 17px;
+  border-radius: 10px;
+  background-color: #28403c;
+  mix-blend-mode: luminosity;
+  color: rgb(180, 180, 180);
+}
+
+.header input:hover {
+  transition: box-shadow 0.1s;
+  animation: glow 1s forwards;
+}
+
+.taskInput {
+  height: 100px;
+  background-color: #28403c;
+  color: rgb(255, 0, 0);
+  color: rgb(180, 180, 180);
+}
+
+.header button {
+  width: 100%;
+  height: 15%;
+  justify-content: center;
+  background: linear-gradient(to right, #092421, #28403c);
+  color: rgb(173, 173, 173);
+  font-weight: 900;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* TODO LIST */
+
+.todoList {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  overflow-y: scroll;
+  background-color: rgb(32, 31, 31);
+  z-index: 1;
+  /* border: 2px solid #db3434; */
+}
+
+.tasks {
+  display: flex;
+  width: 100%;
+  color: rgb(180, 180, 180);
+  justify-content: center;
+  max-height: 70vh;
+  overflow-y: auto;
+  background-color: rgb(32, 31, 31);
+  padding: 10px;
+  /* border: 2px solid #db3434; */
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 5fr 1fr 1fr 0.2fr 0.2fr;
+  gap: 15px;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  /* border: 2px solid #00ff0d; */
+}
+
+span {
+  display: flex;
+  height: 30px;
+  font-size: 15px;
+  align-items: center;
+  justify-content: space-evenly;
+  font-weight: 100;
+  border-radius: 10px;
+  /* margin: 10px; */
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  background-color: #28403c;
+  /* border: 2px solid #3498db; */
+}
+
+span:hover {
+  transition: box-shadow 0.1s;
+  animation: glow 1s forwards;
+}
+.todo1 {
+  font-size: 20px;
+}
+
+button {
+  background-color: #28403c;
+  color: #62a199;
+  border: none;
+  height: 50px;
+  width: 50px;
+  align-items: center;
+  justify-content: end;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.editButton {
+  width: 100%;
+}
+
+.deleteButton {
+  width: 100%;
+}
+
+button:hover {
+  transition: box-shadow 0.1s;
+  animation: glow 1s forwards;
+}
+
+/* TODO EDIT */
+
+input {
+  display: flex;
+  height: 30px;
+  font-size: 15px;
+  align-items: center;
+  justify-content: center;
+  font-weight: 100;
+  color: rgb(180, 180, 180);
+  border-radius: 10px;
+  /* margin-left: 10px;
+  margin-right: 10px; */
+  padding: 10px;
+  background-color: #28403c;
+  border: none;
+}
+
+/* GLOWING ELEMENTS */
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 1px #85c0b8; /* Initial shadow color and size */
+  }
+  50% {
+    box-shadow: 0 0 5px #85c0b8; /* Midpoint shadow color and size */
+  }
+  100% {
+    box-shadow: 0 0 7px #85c0b8; /* Final shadow color and size */
+  }
+}
