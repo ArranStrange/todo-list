@@ -66,9 +66,15 @@ const TodoTask: React.FC<Props> = ({
         ) : (
           // NORMAL STATE
           <>
-            <span className="todo1">{task.taskName}</span>
-            <span className="todo2">{task.taskDate}</span>
-            <span className="todo3">{task.deadline}</span>
+            <span onClick={toggleEdit} className="todo1">
+              {task.taskName}
+            </span>
+            <span onClick={toggleEdit} className="todo2">
+              {task.taskDate}
+            </span>
+            <span onClick={toggleEdit} className="todo3">
+              {task.deadline}
+            </span>
             <button className="editeButton" onClick={toggleEdit}>
               Edit
             </button>
