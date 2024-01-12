@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import { ITask } from "./interfaces";
+import editIcon from "src/Assets/4.png";
 
 interface Props {
   task: ITask;
@@ -45,6 +46,9 @@ const TodoTask: React.FC<Props> = ({
               onChange={handleChange}
               onBlur={handleSave}
             />
+            <button className="editButton" onClick={handleSave}>
+              Save
+            </button>
             <input
               type="date"
               name="taskDate"
@@ -61,9 +65,7 @@ const TodoTask: React.FC<Props> = ({
               onChange={handleChange}
               onBlur={handleSave}
             />
-            <button className="editButton" onClick={handleSave}>
-              Save
-            </button>
+
             <button
               className="deleteButton"
               onClick={() => deleteTask(task.taskName)}
@@ -77,15 +79,15 @@ const TodoTask: React.FC<Props> = ({
             <span onClick={toggleEdit} className="todo1">
               {task.taskName}
             </span>
+            <button className="editButton" onClick={toggleEdit}>
+              Edit
+            </button>
             <span onClick={toggleEdit} className="todoDateSet">
               {task.taskDate}
             </span>
             <span onClick={toggleEdit} className="todoCompletetionDate">
               {task.deadline}
             </span>
-            <button className="editButton" onClick={toggleEdit}>
-              Edit
-            </button>
             <button
               className="deleteButton"
               onClick={() => deleteTask(task.taskName)}

@@ -3,6 +3,7 @@ import "./App.css";
 import TodoTask from "./Components/todo-task";
 import { ITask } from "./Components/interfaces";
 import logoTitle from "./Assets/2.png";
+import { generateGUID } from "./Utils/guid";
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
@@ -30,22 +31,35 @@ const App: FC = () => {
   };
 
   const addTask = (): void => {
-    const newTask = { taskName: task, taskDate: taskDate, deadline: deadline };
+    const newTask = {
+      id: generateGUID(),
+      taskName: task,
+      taskDate: taskDate,
+      deadline: deadline,
+    };
     setTodoList([...todoList, newTask]); // CREATES NEW OBJECT WITH INPUTTED DATA
     setTask(""); // CLEAR TASK STATE
     setDeadline("Not Set"); // CLEAR DEADLINE STATE
-    // console.log(newTask);
+    console.log(newTask);
   };
 
-  const toggleEdit = (taskName: string): void => {
-    setEditingTask(editingTask === taskName ? null : taskName); // taskName ? null : taskName === else if statement
+  const toggleEdit = (id: string): void => {
+    setEditingTask(editingTask === id ? null : id); // taskName ? null : taskName === else if statement
     // editingTask == taskName then in editing mode
     //if !== then put into editing mode (setEditingTask)
   };
 
-  const updateTask = (taskName: string, updatedTask: ITask): void => {
+  const updateTask = (id: string, updatedTask: ITask): void => {
     setTodoList((prevTasks) =>
-      prevTasks.map((task) => (task.taskName === taskName ? updatedTask : task))
+      prevTasks.map((task) => {
+        console.log(task, id);
+        if (task.id === id) {
+          if (task.taskName !== updatedTask.taskName) {
+            return updatedTask;
+          }
+        }
+        return task;
+      })
     );
     // iterates over array of tasks in previous state, if taskName === taskName updates with updatedTask creating a new array, if !== keeps task unchanged
     setEditingTask(""); //resets the state
@@ -89,23 +103,23 @@ const App: FC = () => {
             value={deadline} //sets input to the value of deadline
             onChange={handleChange}
           />
-          <button onClick={addTask}>Add Task</button>
+          <button className="addTaskButton" onClick={addTask}>
+            Add Task
+          </button>
         </div>
       </div>
       <div className="todoList">
         {todoList
           .slice()
           .reverse()
-          .map((task: ITask, key: number) => (
+          .map((task: ITask) => (
             <TodoTask
-              key={key}
+              key={task.id}
               task={task}
               deleteTask={deleteTask}
-              editing={editingTask === task.taskName}
-              toggleEdit={() => toggleEdit(task.taskName)}
-              updateTask={(updatedTask) =>
-                updateTask(task.taskName, updatedTask)
-              }
+              editing={editingTask === task.id}
+              toggleEdit={() => toggleEdit(task.id)}
+              updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
             />
           ))}
       </div>
