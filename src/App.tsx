@@ -2,7 +2,7 @@ import React, { FC, ChangeEvent, useState, useEffect } from "react";
 import "./App.css";
 import TodoTask from "./Components/todo-task";
 import { ITask } from "./Components/interfaces";
-import logoTitle from "./Assets/logoTitle.png";
+import logoTitle from "./Assets/2.png";
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
@@ -85,6 +85,7 @@ const App: FC = () => {
             type="date"
             placeholder="Completion Date"
             name="deadline"
+            id="date"
             value={deadline} //sets input to the value of deadline
             onChange={handleChange}
           />

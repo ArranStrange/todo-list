@@ -13,7 +13,7 @@
 }
 
 .header-image {
-  width: 300px;
+  width: 250px;
   padding-top: 20px;
 }
 
@@ -50,7 +50,7 @@
 }
 
 .taskInput {
-  height: 100px;
+  height: 50px;
   color: #efeeec;
 }
 
@@ -106,11 +106,11 @@
 }
 
 .content:before {
-  content: "Tasks";
+  content: "Task";
   bottom: 0;
-  left: 20%; /* Adjust the percentage to control the starting point of the line */
-  width: 100%; /* Adjust the percentage to control the width of the line */
-  border-bottom: 2px solid #7c7d83; /* Adjust color and thickness as needed */
+  left: 20%;
+  width: 100%;
+  border-bottom: 2px solid #7c7d83;
 }
 
 span {
