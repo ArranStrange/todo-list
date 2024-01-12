@@ -5,14 +5,15 @@
   justify-content: center;
   gap: 20px;
   width: 100vw;
-  min-width: 700px;
+  min-width: 300px;
   height: fit-content;
-  background-color: rgb(32, 31, 31);
+  background-color: #24262e;
   margin: -8px;
+  font-family: "Prompt";
 }
 
 .header-image {
-  width: 400px;
+  width: 300px;
   padding-top: 20px;
 }
 
@@ -39,9 +40,8 @@
   margin: 5px;
   font-size: 17px;
   border-radius: 10px;
-  background-color: #28403c;
-  mix-blend-mode: luminosity;
-  color: rgb(180, 180, 180);
+  background-color: #31333b;
+  color: #efeeec;
 }
 
 .header input:hover {
@@ -51,19 +51,18 @@
 
 .taskInput {
   height: 100px;
-  background-color: #28403c;
-  color: rgb(255, 0, 0);
-  color: rgb(180, 180, 180);
+  color: #efeeec;
 }
 
 .header button {
-  width: 100%;
-  height: 15%;
+  width: 98%;
+  height: 40px;
   justify-content: center;
-  background: linear-gradient(to right, #092421, #28403c);
-  color: rgb(173, 173, 173);
+  background-color: #f27853;
+  color: #24262e;
   font-weight: 900;
-  border-radius: 10px;
+  border: solid 2px #f27853;
+  border-radius: 15px;
   cursor: pointer;
 }
 
@@ -74,7 +73,7 @@
   flex-direction: column;
   height: 320px;
   overflow-y: scroll;
-  background-color: rgb(32, 31, 31);
+  background-color: #24262e;
   z-index: 1;
   /* border: 2px solid #db3434; */
 }
@@ -85,37 +84,47 @@
   color: rgb(180, 180, 180);
   justify-content: center;
   align-items: start;
-  height: 60px;
-  background-color: rgb(32, 31, 31);
+  height: 220px;
+  background-color: #24262e;
   padding: 5px;
   /* border: 2px solid #db3434; */
 }
 
 .content {
   display: grid;
-  grid-template-columns: 5fr 1fr 1fr 0.2fr 0.2fr;
-  height: 15px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  height: fit-content;
   gap: 10px;
-  width: 90%;
+  width: 95%;
   justify-content: center;
   align-items: start;
   border-radius: 10px;
+  margin-bottom: 20px;
   /* border: 2px solid #00ff0d; */
+  padding: 20px;
+  /* border-bottom: 2px solid #7c7d83; */
+}
+
+.content:before {
+  content: "Tasks";
+  bottom: 0;
+  left: 20%; /* Adjust the percentage to control the starting point of the line */
+  width: 100%; /* Adjust the percentage to control the width of the line */
+  border-bottom: 2px solid #7c7d83; /* Adjust color and thickness as needed */
 }
 
 span {
   display: flex;
+  /* grid-row: 2 / 1 span; */
+  grid-column: 2 span;
   height: 30px;
   font-size: 15px;
-  align-items: center;
+  align-items: start;
   justify-content: space-evenly;
   font-weight: 100;
   border-radius: 10px;
-  /* margin: 10px; */
-  margin-left: 10px;
-  margin-right: 10px;
   padding: 10px;
-  background-color: #28403c;
+  background-color: #31333b;
   /* border: 2px solid #3498db; */
 }
 
@@ -123,28 +132,64 @@ span:hover {
   transition: box-shadow 0.1s;
   animation: glow 1s forwards;
 }
+/* TODO CONTENT */
 .todo1 {
+  grid-column: 1/ 4 span;
   font-size: 20px;
+  overflow: scroll;
+  text-overflow: ellipsis;
+  background-color: #31333b;
+  color: #efeeec;
+  /* border: 2px solid #3498db; */
+}
+.todoDateSet {
+  height: 25px;
+  background-color: #bedad9;
+  color: #31333b;
+}
+.todoCompletetionDate {
+  height: 25px;
+  background-color: #bedad9;
+  color: #31333b;
 }
 
 button {
   background-color: #28403c;
-  color: #62a199;
+  color: #24262e;
   border: none;
-  height: 50px;
-  width: 50px;
+  height: 35px;
+  width: 95%;
   align-items: center;
-  justify-content: end;
-  border-radius: 15px;
+  justify-content: center;
+  border-radius: 10px;
   cursor: pointer;
+  /* border: 2px solid #3498db; */
 }
 
 .editButton {
+  display: flex;
+  grid-column: 1 / span 2;
+  height: 35px;
   width: 100%;
+  font-size: 15px;
+  font-family: "Prompt";
+  align-items: center;
+  justify-content: center;
+  background-color: #ebe6e2;
+  color: #24262e;
 }
 
 .deleteButton {
+  display: flex;
+  grid-column: 3 / span 2;
+  height: 35px;
   width: 100%;
+  font-size: 15px;
+  font-family: "Prompt";
+  align-items: center;
+  justify-content: center;
+  background-color: #f17853;
+  color: #24262e;
 }
 
 button:hover {
@@ -156,25 +201,25 @@ button:hover {
 
 input {
   display: flex;
+  /* grid-row: 2 / 1 span; */
+  grid-column: 2 span;
   height: 30px;
   font-size: 15px;
-  align-items: center;
-  justify-content: center;
+  align-items: start;
+  justify-content: space-evenly;
   font-weight: 100;
-  color: rgb(180, 180, 180);
+  font-family: "Prompt";
   border-radius: 10px;
-  /* margin-left: 10px;
-  margin-right: 10px; */
   padding: 10px;
-  background-color: #28403c;
-  border: none;
+  background-color: #5d9088;
+  border: 2px solid #515461;
 }
 
 /* GLOWING ELEMENTS */
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 1px #85c0b8; /* Initial shadow color and size */
+    box-shadow: 0 0 0px #24262e; /* Initial shadow color and size */
   }
   50% {
     box-shadow: 0 0 5px #85c0b8; /* Midpoint shadow color and size */

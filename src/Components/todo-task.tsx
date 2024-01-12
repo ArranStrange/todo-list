@@ -40,6 +40,7 @@ const TodoTask: React.FC<Props> = ({
             <input
               type="text"
               name="taskName"
+              className="todo1"
               value={editedTask.taskName}
               onChange={handleChange}
               onBlur={handleSave}
@@ -58,7 +59,9 @@ const TodoTask: React.FC<Props> = ({
               onChange={handleChange}
               onBlur={handleSave}
             />
-            <button onClick={handleSave}>Save</button>
+            <button className="editButton" onClick={handleSave}>
+              Save
+            </button>
             <button
               className="deleteButton"
               onClick={() => deleteTask(task.taskName)}
@@ -72,13 +75,13 @@ const TodoTask: React.FC<Props> = ({
             <span onClick={toggleEdit} className="todo1">
               {task.taskName}
             </span>
-            <span onClick={toggleEdit} className="todo2">
+            <span onClick={toggleEdit} className="todoDateSet">
               {task.taskDate}
             </span>
-            <span onClick={toggleEdit} className="todo3">
+            <span onClick={toggleEdit} className="todoCompletetionDate">
               {task.deadline}
             </span>
-            <button className="editeButton" onClick={toggleEdit}>
+            <button className="editButton" onClick={toggleEdit}>
               Edit
             </button>
             <button

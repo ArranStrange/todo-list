@@ -88,7 +88,7 @@ const App: FC = () => {
             value={deadline} //sets input to the value of deadline
             onChange={handleChange}
           />
-          <button onClick={addTask}>ADD</button>
+          <button onClick={addTask}>Add Task</button>
         </div>
       </div>
       <div className="todoList">
