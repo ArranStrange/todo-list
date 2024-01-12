@@ -99,6 +99,7 @@ const App: FC = () => {
             type="date"
             placeholder="Completion Date"
             name="deadline"
+            className="deadlineInput"
             id="date"
             value={deadline} //sets input to the value of deadline
             onChange={handleChange}

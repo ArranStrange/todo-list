@@ -6,7 +6,7 @@
   gap: 20px;
   width: 100vw;
   min-width: 300px;
-  height: fit-content;
+  height: 100vh;
   background-color: #24262e;
   margin: -8px;
   font-family: "Prompt";
@@ -27,7 +27,9 @@
 }
 
 .header .inputContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 350px;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
@@ -51,24 +53,26 @@
 }
 
 .taskInput {
-  height: 50px;
+  grid-column: 1 / 4 span;
+  height: 75px;
   color: #efeeec;
 }
 
 .addTaskButton {
-  /* margin-top: 5px; */
-}
-
-.header button {
-  width: 98%;
-  height: 40px;
-  justify-content: center;
+  grid-column: 4 / 1 span;
+  height: 100%;
+  width: 100%;
+  margin-left: 22px;
   background-color: #f27853;
   color: #24262e;
   font-weight: 900;
-  border: solid 2px #f27853;
   border-radius: 15px;
   cursor: pointer;
+}
+
+.deadlineInput {
+  grid-column: 1 / 3 span;
+  /* border: 2px solid #db3434; */
 }
 
 /* TODO LIST */
