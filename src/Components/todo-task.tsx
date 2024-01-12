@@ -68,8 +68,9 @@ const TodoTask: React.FC<Props> = ({
             <button
               className="editButton"
               onClick={() => {
-                handleSave();
+                toggleEdit();
                 handleIsVisible();
+                handleSave();
               }}
             >
               Save
@@ -81,7 +82,7 @@ const TodoTask: React.FC<Props> = ({
               className="todoDateSet"
               value={editedTask.taskDate}
               onChange={handleChange}
-              // onBlur={handleSave}
+              onBlur={handleSave}
             />
 
             <input
@@ -90,7 +91,7 @@ const TodoTask: React.FC<Props> = ({
               className="todoCompletetionDate"
               value={editedTask.deadline}
               onChange={handleChange}
-              // onBlur={handleSave}
+              onBlur={handleSave}
             />
 
             <button
@@ -107,7 +108,6 @@ const TodoTask: React.FC<Props> = ({
               className="todo1"
               onClick={() => {
                 toggleEdit();
-                handleIsVisible();
               }}
               onBlur={() => {
                 handleSave();
