@@ -18,6 +18,11 @@ const TodoTask: React.FC<Props> = ({
   updateTask,
 }) => {
   const [editedTask, setEditedTask] = useState<ITask>({ ...task });
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleIsVisible = (): void => {
+    setIsVisible((prevIsVisible) => !prevIsVisible);
+  };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
@@ -34,7 +39,7 @@ const TodoTask: React.FC<Props> = ({
 
   return (
     <div className="tasks">
-      <div className="content">
+      <div className="content" onBlur={handleIsVisible}>
         {/* STATE ON EDIT */}
         {editing ? (
           <>
@@ -46,7 +51,13 @@ const TodoTask: React.FC<Props> = ({
               onChange={handleChange}
               onBlur={handleSave}
             />
-            <button className="editButton" onClick={handleSave}>
+            <button
+              className="editButton"
+              onClick={() => {
+                handleSave();
+                handleIsVisible();
+              }}
+            >
               Save
             </button>
             <input
@@ -76,24 +87,38 @@ const TodoTask: React.FC<Props> = ({
         ) : (
           // NORMAL STATE
           <>
-            <span onClick={toggleEdit} className="todo1">
+            <span
+              onClick={() => {
+                toggleEdit();
+                handleIsVisible();
+              }}
+              className="todo1"
+            >
               {task.taskName}
             </span>
+
             <button className="editButton" onClick={toggleEdit}>
               Edit
             </button>
-            <span onClick={toggleEdit} className="todoDateSet">
-              {task.taskDate}
-            </span>
-            <span onClick={toggleEdit} className="todoCompletetionDate">
-              {task.deadline}
-            </span>
-            <button
-              className="deleteButton"
-              onClick={() => deleteTask(task.taskName)}
-            >
-              X
-            </button>
+
+            {isVisible && (
+              <span onClick={toggleEdit} className="todoDateSet">
+                {task.taskDate}
+              </span>
+            )}
+            {isVisible && (
+              <span onClick={toggleEdit} className="todoCompletetionDate">
+                {task.deadline}
+              </span>
+            )}
+            {isVisible && (
+              <button
+                className="deleteButton"
+                onClick={() => deleteTask(task.taskName)}
+              >
+                X
+              </button>
+            )}
           </>
         )}
       </div>

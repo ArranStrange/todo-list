@@ -98,7 +98,7 @@
   color: rgb(180, 180, 180);
   justify-content: center;
   align-items: start;
-  height: 175px;
+  height: fit-content;
   background-color: #24262e;
   padding: 5px;
   /* border: 2px solid #db3434; */
@@ -113,9 +113,9 @@
   justify-content: center;
   align-items: start;
   border-radius: 10px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   /* border: 2px solid #00ff0d; */
-  padding: 20px;
+  /* padding: 20px; */
   /* border-bottom: 2px solid #7c7d83; */
 }
 
@@ -130,7 +130,7 @@ span {
   display: flex;
   /* grid-row: 2 / 1 span; */
   grid-column: 2 span;
-  height: 25px;
+  height: 30px;
   font-size: 15px;
   align-items: start;
   justify-content: space-evenly;
