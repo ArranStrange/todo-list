@@ -48,6 +48,7 @@ const TodoTask: React.FC<Props> = ({
             <input
               type="date"
               name="taskDate"
+              className="todoDateSet"
               value={editedTask.taskDate}
               onChange={handleChange}
               onBlur={handleSave}
@@ -55,6 +56,7 @@ const TodoTask: React.FC<Props> = ({
             <input
               type="date"
               name="deadline"
+              className="todoCompletetionDate"
               value={editedTask.deadline}
               onChange={handleChange}
               onBlur={handleSave}

@@ -132,6 +132,7 @@ span:hover {
   transition: box-shadow 0.1s;
   animation: glow 1s forwards;
 }
+
 /* TODO CONTENT */
 .todo1 {
   grid-column: 1/ 4 span;
@@ -211,7 +212,7 @@ input {
   font-family: "Prompt";
   border-radius: 10px;
   padding: 10px;
-  background-color: #5d9088;
+  background-color: #bedad9;
   border: 2px solid #515461;
 }
 
