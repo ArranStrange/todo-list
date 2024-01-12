@@ -149,6 +149,7 @@ span:hover {
   text-overflow: ellipsis;
   background-color: #31333b;
   color: #efeeec;
+  font-weight: 200;
   /* border: 2px solid #3498db; */
 }
 .todoDateSet {
@@ -156,12 +157,14 @@ span:hover {
   /* height: 25px; */
   background-color: #bedad9;
   color: #31333b;
+  font-weight: 500;
 }
 .todoCompletetionDate {
   grid-column: 3 / span 2.5;
   /* height: 25px; */
   background-color: #bedad9;
   color: #31333b;
+  font-weight: 500;
 }
 
 button {
@@ -174,6 +177,7 @@ button {
   justify-content: center;
   border-radius: 10px;
   cursor: pointer;
+  font-weight: 500;
   /* border: 2px solid #3498db; */
 }
 

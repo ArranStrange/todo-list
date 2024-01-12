@@ -105,7 +105,7 @@ const App: FC = () => {
             onChange={handleChange}
           />
           <button className="addTaskButton" onClick={addTask}>
-            Add Task
+            Add
           </button>
         </div>
       </div>
