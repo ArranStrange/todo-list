@@ -7,7 +7,7 @@ import { generateGUID } from "./Utils/guid";
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
-  const [deadline, setDeadline] = useState<string>("Not Set");
+  const [deadline, setDeadline] = useState<string>("");
   const [taskDate, setTaskDate] = useState<string>("");
   const [todoList, setTodoList] = useState<ITask[]>([]);
   const [editingTask, setEditingTask] = useState<string | null>("");
@@ -22,7 +22,7 @@ const App: FC = () => {
       setTask(event.target.value);
       //Checks the input elements name is === "task", if so updates to inputted value
     } else if (event.target.name === "deadline") {
-      setDeadline(event.target.value === "" ? "Not Set" : event.target.value); // else if Shorthand
+      setDeadline(event.target.value === "" ? "" : event.target.value); // else if Shorthand
       //Checks the input elements name is === "deadline", if so updates to inputted value
     } else if (event.target.name === "taskDate") {
       setTaskDate(String(event.target.value));
@@ -39,7 +39,7 @@ const App: FC = () => {
     };
     setTodoList([...todoList, newTask]); // CREATES NEW OBJECT WITH INPUTTED DATA
     setTask(""); // CLEAR TASK STATE
-    setDeadline("Not Set"); // CLEAR DEADLINE STATE
+    setDeadline(""); // CLEAR DEADLINE STATE
     console.log(newTask);
   };
 
