@@ -51,7 +51,7 @@ const TodoTask: React.FC<Props> = ({
             <input
               type="text"
               name="taskName"
-              className="todo1"
+              className="todo1 todoEditInput"
               value={editedTask.taskName}
               onChange={handleChange}
               onBlur={handleSave}
