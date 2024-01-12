@@ -39,7 +39,12 @@ const TodoTask: React.FC<Props> = ({
 
   return (
     <div className="tasks">
-      <div className="content" onBlur={handleIsVisible}>
+      <div
+        className="content"
+        onBlur={() => {
+          handleIsVisible();
+        }}
+      >
         {/* STATE ON EDIT */}
         {editing ? (
           <>
@@ -60,6 +65,7 @@ const TodoTask: React.FC<Props> = ({
             >
               Save
             </button>
+
             <input
               type="date"
               name="taskDate"
@@ -68,6 +74,7 @@ const TodoTask: React.FC<Props> = ({
               onChange={handleChange}
               onBlur={handleSave}
             />
+
             <input
               type="date"
               name="deadline"
@@ -106,11 +113,13 @@ const TodoTask: React.FC<Props> = ({
                 {task.taskDate}
               </span>
             )}
+
             {isVisible && (
               <span onClick={toggleEdit} className="todoCompletetionDate">
                 {task.deadline}
               </span>
             )}
+
             {isVisible && (
               <button
                 className="deleteButton"
