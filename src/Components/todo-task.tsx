@@ -38,7 +38,13 @@ const TodoTask: React.FC<Props> = ({
   };
 
   return (
-    <div className="tasks">
+    <div
+      className="tasks"
+      onBlur={() => {
+        handleSave();
+        handleIsVisible();
+      }}
+    >
       <div
         className="content"
         onBlur={() => {
@@ -54,7 +60,10 @@ const TodoTask: React.FC<Props> = ({
               className="todo1 todoEditInput"
               value={editedTask.taskName}
               onChange={handleChange}
-              onBlur={handleSave}
+              onBlur={() => {
+                handleSave();
+                handleIsVisible();
+              }}
             />
             <button
               className="editButton"
@@ -95,11 +104,15 @@ const TodoTask: React.FC<Props> = ({
           // NORMAL STATE
           <>
             <span
+              className="todo1"
               onClick={() => {
                 toggleEdit();
                 handleIsVisible();
               }}
-              className="todo1"
+              onBlur={() => {
+                handleSave();
+                handleIsVisible();
+              }}
             >
               {task.taskName}
             </span>
