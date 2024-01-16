@@ -40,7 +40,7 @@ const TodoTask: React.FC<Props> = ({
   };
 
   const handleComplete = (): void => {
-    setIsCompleted(true);
+    setIsCompleted((prevIsCompleted) => !prevIsCompleted); // Toggle completion state
     completeTask(task.id);
   };
 
