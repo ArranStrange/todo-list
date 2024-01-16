@@ -48,7 +48,7 @@ const TodoTask: React.FC<Props> = ({
     <div className={`tasks ${isCompleted ? "completed" : ""}`}>
       <div
         className="content"
-        data-created={task.taskDate}
+        data-created={editedTask.taskDate}
         // onBlur={() => {
         //   handleIsVisible();
         // }}
