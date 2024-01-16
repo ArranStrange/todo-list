@@ -15,7 +15,7 @@ const App: FC = () => {
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0]; //gets todays date
     setTaskDate(today); //sets taskDate to todays date
-  });
+  }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.name === "task") {
@@ -36,6 +36,7 @@ const App: FC = () => {
       taskName: task,
       taskDate: taskDate,
       deadline: deadline,
+      isCompleted: false,
     };
     setTodoList([...todoList, newTask]); // CREATES NEW OBJECT WITH INPUTTED DATA
     setTask(""); // CLEAR TASK STATE
@@ -73,6 +74,21 @@ const App: FC = () => {
         return task.taskName !== taskNameToDelete; //if task name !== taskNameToDelete, task is kept in new array
       })
     );
+  };
+
+  const completeTask = (taskId: string): void => {
+    setTodoList((prevTasks) => {
+      const completedTaskIndex = prevTasks.findIndex(
+        (task) => task.id === taskId
+      );
+
+      if (completedTaskIndex !== -1) {
+        const completedTask = prevTasks.splice(completedTaskIndex, 1)[0];
+        prevTasks.unshift({ ...completedTask, isCompleted: true });
+      }
+
+      return [...prevTasks];
+    });
   };
 
   return (
@@ -121,6 +137,7 @@ const App: FC = () => {
               editing={editingTask === task.id}
               toggleEdit={() => toggleEdit(task.id)}
               updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
+              completeTask={completeTask}
             />
           ))}
       </div>

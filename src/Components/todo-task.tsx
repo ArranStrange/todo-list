@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
 import { ITask } from "./interfaces";
-import editIcon from "src/Assets/4.png";
 
 interface Props {
   task: ITask;
@@ -8,6 +7,7 @@ interface Props {
   editing: boolean;
   toggleEdit(): void;
   updateTask(updatedTask: ITask): void;
+  completeTask(taskId: string): void;
 }
 
 const TodoTask: React.FC<Props> = ({
@@ -16,9 +16,11 @@ const TodoTask: React.FC<Props> = ({
   editing,
   toggleEdit,
   updateTask,
+  completeTask,
 }) => {
   const [editedTask, setEditedTask] = useState<ITask>({ ...task });
   const [isVisible, setIsVisible] = useState(false);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   const handleIsVisible = (): void => {
     setIsVisible((prevIsVisible) => !prevIsVisible);
@@ -37,10 +39,16 @@ const TodoTask: React.FC<Props> = ({
     toggleEdit();
   };
 
+  const handleComplete = (): void => {
+    setIsCompleted(true);
+    completeTask(task.id);
+  };
+
   return (
-    <div className="tasks">
+    <div className={`tasks ${isCompleted ? "completed" : ""}`}>
       <div
         className="content"
+        data-created={task.taskDate}
         // onBlur={() => {
         //   handleIsVisible();
         // }}
@@ -48,6 +56,15 @@ const TodoTask: React.FC<Props> = ({
         {/* STATE ON EDIT */}
         {editing ? (
           <>
+            <button
+              className="completeButton"
+              onClick={() => {
+                handleComplete();
+                handleIsVisible();
+              }}
+            >
+              Complete Task
+            </button>
             <input
               type="text"
               name="taskName"
@@ -76,7 +93,7 @@ const TodoTask: React.FC<Props> = ({
               className="todoDateSet"
               value={editedTask.taskDate}
               onChange={handleChange}
-              onBlur={handleSave}
+              // onBlur={handleSave}
             />
 
             <input
@@ -85,7 +102,7 @@ const TodoTask: React.FC<Props> = ({
               className="todoCompletetionDate"
               value={editedTask.deadline}
               onChange={handleChange}
-              onBlur={handleSave}
+              // onBlur={handleSave}
             />
 
             <button
@@ -98,8 +115,11 @@ const TodoTask: React.FC<Props> = ({
         ) : (
           // NORMAL STATE
           <>
+            <button className="completeButton" onClick={handleComplete}>
+              Complete Task
+            </button>
             <span
-              className="todo1"
+              className={`todo1 ${isCompleted ? "completed" : ""}`}
               onClick={() => {
                 toggleEdit();
               }}
@@ -135,6 +155,8 @@ const TodoTask: React.FC<Props> = ({
                 X
               </button>
             )}
+
+            {/* COMPLETED STATE */}
           </>
         )}
       </div>
