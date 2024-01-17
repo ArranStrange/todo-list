@@ -1,35 +1,39 @@
 import React from "react";
-import { useState } from "react";
 import { ITask } from "./interfaces";
 import "../App.css";
 
-interface Props {
-  task: ITask;
-  deleteTask(taskNameToDelete: string): void;
-  editing: boolean;
-  toggleEdit(): void;
-  updateTask(updatedTask: ITask): void;
-  completeTask(taskId: string): void;
-}
-
 interface CompletedTasksProps {
   completedTasks: ITask[];
+  onRestoreTask: (taskId: string) => void;
 }
-const CompletedTasks: React.FC<CompletedTasksProps> = ({ completedTasks }) => {
-  const [isVisible, setIsVisible] = useState(false);
+
+const CompletedTasks: React.FC<CompletedTasksProps> = ({
+  completedTasks,
+  onRestoreTask,
+}) => {
+  const handleRestore = (taskId: string) => {
+    // Call the callback function provided by the parent component
+    onRestoreTask(taskId);
+  };
+
   return (
-    <div className="todo-list">
-      <div className="tasks">
-        <div className="content completedcontent">
-          <button className="completeButton">Restore</button>
+    <>
+      <div className="tasks ">
+        <div className="completed-content">
           {completedTasks.map((task) => (
-            <span key={task.id} className="todo1">
-              {task.taskName}
-            </span>
+            <div key={task.id}>
+              <span className="todo1">{task.taskName}</span>
+              <button
+                className="completeButton"
+                onClick={() => handleRestore(task.id)}
+              >
+                Restore
+              </button>
+            </div>
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

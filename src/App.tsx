@@ -102,11 +102,28 @@ const App: FC = () => {
         const remainingTasks = updatedTasks.filter(
           (task) => task.id !== taskId
         );
+
+        // Return the updated array of remaining tasks
         return remainingTasks;
       } else {
         return prevTasks;
       }
     });
+  };
+
+  const restoreTask = (taskId: string): void => {
+    // Find the task in completedTasks
+    const restoredTask = completedTasks.find((task) => task.id === taskId);
+
+    if (restoredTask) {
+      // Add the task back to the todoList array
+      setTodoList((prevTodoList) => [...prevTodoList, restoredTask]);
+
+      // Remove the task from completedTasks
+      setCompletedTasks((prevCompletedTasks) =>
+        prevCompletedTasks.filter((task) => task.id !== taskId)
+      );
+    }
   };
 
   return (
@@ -158,13 +175,11 @@ const App: FC = () => {
               completeTask={completeTask}
             />
           ))}
-        {/* Render the CompletedTasks component and pass completedTasks as props */}
-        {completedTasks
-          .slice()
-          .reverse()
-          .map((task: ITask) => (
-            <CompletedTasks completedTasks={completedTasks} />
-          ))}
+        {/* Render the CompletedTasks component and pass completedTasks as a prop */}
+        <CompletedTasks
+          completedTasks={completedTasks}
+          onRestoreTask={restoreTask}
+        />
       </div>
     </div>
   );

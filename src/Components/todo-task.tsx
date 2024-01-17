@@ -45,14 +45,8 @@ const TodoTask: React.FC<Props> = ({
   };
 
   return (
-    <div className={`tasks ${isCompleted ? "completed" : ""}`}>
-      <div
-        className="content"
-        data-created={editedTask.taskDate}
-        // onBlur={() => {
-        //   handleIsVisible();
-        // }}
-      >
+    <div className="tasks">
+      <div className="content" data-created={editedTask.taskDate}>
         {/* STATE ON EDIT */}
         {editing ? (
           <>
@@ -119,7 +113,7 @@ const TodoTask: React.FC<Props> = ({
               Complete Task
             </button>
             <span
-              className={`todo1 ${isCompleted ? "completed" : ""}`}
+              className="todo1"
               onClick={() => {
                 toggleEdit();
               }}
