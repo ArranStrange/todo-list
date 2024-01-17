@@ -90,6 +90,7 @@
   flex-direction: column;
   height: 320px;
   /* overflow-y: scroll; */
+  overflow-x: scroll;
   background-color: #24262e;
   z-index: 1;
   /* border: 2px solid #db3434; */
@@ -260,8 +261,16 @@ input {
 }
 
 /* IS COMPLETED STATE */
-.tasks.completed {
+
+.completedcontent {
   opacity: 0.5;
+}
+.completed-tasks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 100px;
+  justify-content: center;
+  border: 2px solid #3498db;
 }
 
 /* GLOWING ELEMENTS */

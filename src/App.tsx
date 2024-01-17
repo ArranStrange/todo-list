@@ -1,6 +1,7 @@
 import React, { FC, ChangeEvent, useState, useEffect } from "react";
 import "./App.css";
 import TodoTask from "./Components/todo-task";
+import CompletedTasks from "./Components/completed-tasks";
 import { ITask } from "./Components/interfaces";
 import logoTitle from "./Assets/2.png";
 import { generateGUID } from "./Utils/guid";
@@ -10,6 +11,7 @@ const App: FC = () => {
   const [deadline, setDeadline] = useState<string>("");
   const [taskDate, setTaskDate] = useState<string>("");
   const [todoList, setTodoList] = useState<ITask[]>([]);
+  const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
   const [editingTask, setEditingTask] = useState<string | null>("");
 
   useEffect(() => {
@@ -77,17 +79,33 @@ const App: FC = () => {
   };
 
   const completeTask = (taskId: string): void => {
-    setTodoList((prevTasks) => {
-      const completedTaskIndex = prevTasks.findIndex(
-        (task) => task.id === taskId
+    setTodoList((prevTasks: ITask[]) => {
+      const updatedTasks = prevTasks.map((task) => {
+        if (task.id === taskId) {
+          // Mark the task as completed
+          return { ...task, isCompleted: true };
+        }
+        return task;
+      });
+
+      const completedTask = updatedTasks.find(
+        (task) => task.id === taskId && task.isCompleted
       );
 
-      if (completedTaskIndex !== -1) {
-        const completedTask = prevTasks.splice(completedTaskIndex, 1)[0];
-        prevTasks.unshift({ ...completedTask, isCompleted: true });
-      }
+      if (completedTask) {
+        setCompletedTasks((prevCompletedTasks) => [
+          ...prevCompletedTasks,
+          completedTask,
+        ]);
 
-      return [...prevTasks];
+        // Remove the completed task from the original array
+        const remainingTasks = updatedTasks.filter(
+          (task) => task.id !== taskId
+        );
+        return remainingTasks;
+      } else {
+        return prevTasks;
+      }
     });
   };
 
@@ -139,6 +157,13 @@ const App: FC = () => {
               updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
               completeTask={completeTask}
             />
+          ))}
+        {/* Render the CompletedTasks component and pass completedTasks as props */}
+        {completedTasks
+          .slice()
+          .reverse()
+          .map((task: ITask) => (
+            <CompletedTasks completedTasks={completedTasks} />
           ))}
       </div>
     </div>
