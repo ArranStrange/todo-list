@@ -155,6 +155,7 @@ const App: FC = () => {
             <TodoTask
               key={task.id}
               task={task}
+              ya
               deleteTask={deleteTask}
               editing={editingTask === task.id}
               toggleEdit={() => toggleEdit(task.id)}
