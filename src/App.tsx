@@ -113,7 +113,7 @@ const App: FC = () => {
 
   const handleSortBy = (event: ChangeEvent<HTMLSelectElement>): void => {
     const selectedSortOrder = event.target.value;
-    if (selectedSortOrder === "date") {
+    if (selectedSortOrder === "dateSet") {
       sortByDateSet();
     }
     if (selectedSortOrder === "deadline") {
@@ -132,6 +132,7 @@ const App: FC = () => {
           return dateSetA - dateSetB;
         })
     );
+    console.log("sort by date running");
   };
 
   const sortByDeadline = (): void => {
@@ -184,7 +185,7 @@ const App: FC = () => {
         <div className="dropDown">
           <label>Sort by: </label>
           <select onChange={handleSortBy}>
-            <option value="setDate">Date Created</option>
+            <option value="dateSet">Date Created</option>
             <option value="deadline">Deadline</option>
           </select>
         </div>
