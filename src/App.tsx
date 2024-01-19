@@ -15,9 +15,9 @@ const App: FC = () => {
   const [editingTask, setEditingTask] = useState<string | null>("");
 
   useEffect(() => {
-    const today = new Date().toISOString().split("T")[0]; //gets todays date
-    setTaskDate(today); //sets taskDate to todays date
-  }, []);
+    const today = new Date().toISOString().split(".")[0]; //gets todays date and time
+    setTaskDate(today); //sets taskDate to todays date and time
+  }, [todoList]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.name === "task") {
@@ -43,7 +43,7 @@ const App: FC = () => {
     setTodoList([...todoList, newTask]); // CREATES NEW OBJECT WITH INPUTTED DATA
     setTask(""); // CLEAR TASK STATE
     setDeadline(""); // CLEAR DEADLINE STATE
-    console.log(newTask);
+    // console.log(newTask);
   };
 
   const toggleEdit = (id: string): void => {
@@ -110,6 +110,43 @@ const App: FC = () => {
       );
     }
   };
+
+  const handleSortBy = (event: ChangeEvent<HTMLSelectElement>): void => {
+    const selectedSortOrder = event.target.value;
+    if (selectedSortOrder === "date") {
+      sortByDateSet();
+    }
+    if (selectedSortOrder === "deadline") {
+      sortByDeadline();
+    }
+  };
+
+  const sortByDateSet = (): void => {
+    setTodoList((prevTasks) =>
+      prevTasks
+        .slice()
+        // .reverse()
+        .sort((a, b) => {
+          const dateSetA = new Date(a.taskDate).getTime();
+          const dateSetB = new Date(b.taskDate).getTime();
+          return dateSetA - dateSetB;
+        })
+    );
+  };
+
+  const sortByDeadline = (): void => {
+    setTodoList((prevTasks) =>
+      prevTasks
+        .slice()
+        .reverse()
+        .sort((a, b) => {
+          const deadlineA = new Date(a.deadline).getTime();
+          const deadlineB = new Date(b.deadline).getTime();
+          return deadlineA - deadlineB;
+        })
+    );
+  };
+
   // console.log(completedTasks);
   return (
     <div className="App">
@@ -144,18 +181,25 @@ const App: FC = () => {
             Add
           </button>
         </div>
+        <div className="dropDown">
+          <label>Sort by: </label>
+          <select onChange={handleSortBy}>
+            <option value="setDate">Date Created</option>
+            <option value="deadline">Deadline</option>
+          </select>
+        </div>
       </div>
       <div className="todoList">
         {todoList
-          .sort()
+          // // .sort()
           // .slice()
-          // .reverse()
-          //add sort instead .slice .reverse
+          .reverse()
+          // .sort()
+          // //add sort instead .slice .reverse
           .map((task: ITask) => (
             <TodoTask
               key={task.id}
               task={task}
-              ya
               deleteTask={deleteTask}
               editing={editingTask === task.id}
               toggleEdit={() => toggleEdit(task.id)}

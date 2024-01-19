@@ -50,7 +50,7 @@ const TodoTask: React.FC<Props> = ({
 
   return (
     <div className="task">
-      <div className="content" data-created={editedTask.taskDate}>
+      <div className="content" data-created={editedTask.taskDate.split("T")}>
         {/* STATE ON EDIT */}
         {editing ? (
           <>
@@ -78,7 +78,7 @@ const TodoTask: React.FC<Props> = ({
               <img src={closeIcon} alt="save icon" className="editIcon" />
             </button>
 
-            <fieldset className="setDate">
+            {/* <fieldset className="setDate">
               <label>Date Set:</label>
               <input
                 type="date"
@@ -88,9 +88,9 @@ const TodoTask: React.FC<Props> = ({
                 onChange={handleChange}
                 // onBlur={handleSave}
               />
-            </fieldset>
+            </fieldset> */}
             <fieldset className="DeadlineDate">
-              <label>Deadline:</label>
+              <label>Update Deadline:</label>
               <input
                 type="date"
                 name="deadline"
