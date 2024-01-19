@@ -96,7 +96,7 @@
   /* border: 2px solid #db3434; */
 }
 
-.tasks {
+.task {
   display: flex;
   width: 95%;
   color: rgb(180, 180, 180);
@@ -209,6 +209,7 @@ input {
   /* height: 30px; */
   font-size: 15px;
   /* align-items: start; */
+  /* width: 95%; */
   justify-content: space-evenly;
   /* font-weight: 100; */
   font-family: "Prompt";
@@ -256,7 +257,7 @@ input {
   grid-column: 10 / span 1;
   height: 50px;
   width: 50px;
-  border-radius: 50px;
+  /* border-radius: 30px; */
   font-size: 15px;
   font-family: "Prompt";
   align-items: center;
@@ -266,33 +267,9 @@ input {
 
 /* IS COMPLETED STATE */
 
-.completed-tasks {
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
-  /* border: 2px solid #3498db; */
-}
-
-.completed-content {
-  display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
-  height: fit-content;
-  gap: 5px;
-  width: 80%;
-  padding-top: 20px;
-  justify-content: center;
-  align-items: start;
-  border-radius: 10px;
+.completedContent {
   opacity: 0.5;
   /* border: 2px solid #00ff0d; */
-}
-.completedtodo1 {
-  grid-column: 2 / 8 span;
-  font-size: 20px;
-  /* overflow: scroll; */
-  text-overflow: ellipsis;
-  background-color: #31333b;
-  color: #efeeec;
-  font-weight: 200;
-  /* border: 2px solid #3498db; */
 }
 
 /* GLOWING ELEMENTS */
@@ -312,8 +289,8 @@ input {
 /* ICONS */
 
 .editIcon {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
@@ -324,8 +301,8 @@ input {
 }
 
 .binIcon {
-  height: 45px;
-  width: 45px;
+  height: 35px;
+  width: 35px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
@@ -337,8 +314,8 @@ input {
 }
 
 .checkboxIcon {
-  height: 45px;
-  width: 45px;
+  height: 35px;
+  width: 35px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;

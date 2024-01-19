@@ -49,7 +49,7 @@ const TodoTask: React.FC<Props> = ({
   };
 
   return (
-    <div className="tasks">
+    <div className="task">
       <div className="content" data-created={editedTask.taskDate}>
         {/* STATE ON EDIT */}
         {editing ? (
@@ -75,7 +75,7 @@ const TodoTask: React.FC<Props> = ({
               // }}
             />
             <button className="editButton" onClick={handleSave}>
-              <img src={closeIcon} className="editIcon" />
+              <img src={closeIcon} alt="save icon" className="editIcon" />
             </button>
 
             <fieldset className="setDate">
@@ -103,9 +103,9 @@ const TodoTask: React.FC<Props> = ({
 
             <button
               className="deleteButton"
-              onClick={() => deleteTask(task.taskName)}
+              onClick={() => deleteTask(task.id)}
             >
-              <img src={binIcon} className="binIcon" />
+              <img src={binIcon} alt="Bin icon" className="binIcon" />
             </button>
           </>
         ) : (
@@ -134,7 +134,7 @@ const TodoTask: React.FC<Props> = ({
             </span>
 
             <button className="editButton" onClick={toggleEdit}>
-              <img src={editIcon} className="editIcon" />
+              <img src={editIcon} className="editIcon" alt="Edit icon" />
             </button>
 
             {isVisible && (

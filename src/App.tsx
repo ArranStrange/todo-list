@@ -68,47 +68,32 @@ const App: FC = () => {
     setEditingTask(""); //resets the state
   };
 
-  const deleteTask = (taskNameToDelete: string): void => {
+  const deleteTask = (taskIdToDelete: string): void => {
     // Starts updating the todoList when button clicked
     setTodoList(
       // Create a new array by keeping only tasks that don't match the taskNameToDelete
       todoList.filter((task) => {
-        return task.taskName !== taskNameToDelete; //if task name !== taskNameToDelete, task is kept in new array
+        return task.id !== taskIdToDelete; //if task name !== taskNameToDelete, task is kept in new array
+      })
+    );
+  };
+
+  const deleteCompletedTask = (taskIdToDelete: string): void => {
+    // Starts updating the todoList when button clicked
+    setCompletedTasks(
+      // Create a new array by keeping only tasks that don't match the taskNameToDelete
+      completedTasks.filter((task) => {
+        return task.id !== taskIdToDelete; //if task name !== taskNameToDelete, task is kept in new array
       })
     );
   };
 
   const completeTask = (taskId: string): void => {
-    setTodoList((prevTasks: ITask[]) => {
-      const updatedTasks = prevTasks.map((task) => {
-        if (task.id === taskId) {
-          // Mark the task as completed
-          return { ...task, isCompleted: true };
-        }
-        return task;
-      });
-
-      const completedTask = updatedTasks.find(
-        (task) => task.id === taskId && task.isCompleted
-      );
-
-      if (completedTask) {
-        setCompletedTasks((prevCompletedTasks) => [
-          ...prevCompletedTasks,
-          completedTask,
-        ]);
-
-        // Remove the completed task from the original array
-        const remainingTasks = updatedTasks.filter(
-          (task) => task.id !== taskId
-        );
-
-        // Return the updated array of remaining tasks
-        return remainingTasks;
-      } else {
-        return prevTasks;
-      }
-    });
+    const existingTask = todoList.find((task) => task.id === taskId);
+    if (existingTask) {
+      setCompletedTasks([...completedTasks, existingTask]);
+      setTodoList(todoList.filter((task) => task.id !== taskId));
+    }
   };
 
   const restoreTask = (taskId: string): void => {
@@ -125,7 +110,7 @@ const App: FC = () => {
       );
     }
   };
-
+  // console.log(completedTasks);
   return (
     <div className="App">
       <div className="header">
@@ -162,8 +147,10 @@ const App: FC = () => {
       </div>
       <div className="todoList">
         {todoList
-          .slice()
-          .reverse()
+          .sort()
+          // .slice()
+          // .reverse()
+          //add sort instead .slice .reverse
           .map((task: ITask) => (
             <TodoTask
               key={task.id}
@@ -178,6 +165,7 @@ const App: FC = () => {
         <CompletedTasks
           completedTasks={completedTasks}
           onRestoreTask={restoreTask}
+          deleteTask={deleteCompletedTask}
         />
       </div>
     </div>
