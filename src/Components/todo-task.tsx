@@ -1,5 +1,9 @@
 import React, { useState, ChangeEvent } from "react";
 import { ITask } from "./interfaces";
+import editIcon from "../Assets/4.png";
+import binIcon from "../Assets/3.png";
+import closeIcon from "../Assets/closeIcon.png";
+import uncheckedBox from "../Assets/uncheckedBox.png";
 
 interface Props {
   task: ITask;
@@ -57,7 +61,7 @@ const TodoTask: React.FC<Props> = ({
                 handleIsVisible();
               }}
             >
-              Complete Task
+              <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
             <input
               type="text"
@@ -70,47 +74,51 @@ const TodoTask: React.FC<Props> = ({
               //   handleIsVisible();
               // }}
             />
-            <button
-              className="editButton"
-              onClick={() => {
-                // toggleEdit();
-                // handleIsVisible();
-                handleSave();
-              }}
-            >
-              Save
+            <button className="editButton" onClick={handleSave}>
+              <img src={closeIcon} className="editIcon" />
             </button>
 
-            <input
-              type="date"
-              name="taskDate"
-              className="todoDateSet"
-              value={editedTask.taskDate}
-              onChange={handleChange}
-              // onBlur={handleSave}
-            />
-
-            <input
-              type="date"
-              name="deadline"
-              className="todoCompletetionDate"
-              value={editedTask.deadline}
-              onChange={handleChange}
-              // onBlur={handleSave}
-            />
+            <fieldset className="setDate">
+              <label>Date Set:</label>
+              <input
+                type="date"
+                name="taskDate"
+                className="todoDateSet"
+                value={editedTask.taskDate}
+                onChange={handleChange}
+                // onBlur={handleSave}
+              />
+            </fieldset>
+            <fieldset className="DeadlineDate">
+              <label>Deadline:</label>
+              <input
+                type="date"
+                name="deadline"
+                className="todoCompletetionDate"
+                value={editedTask.deadline}
+                onChange={handleChange}
+                // onBlur={handleSave}
+              />
+            </fieldset>
 
             <button
               className="deleteButton"
               onClick={() => deleteTask(task.taskName)}
             >
-              X
+              <img src={binIcon} className="binIcon" />
             </button>
           </>
         ) : (
           // NORMAL STATE
           <>
-            <button className="completeButton" onClick={handleComplete}>
-              Complete Task
+            <button
+              className="completeButton"
+              onClick={() => {
+                handleComplete();
+                handleIsVisible();
+              }}
+            >
+              <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
             <span
               className="todo1"
@@ -126,7 +134,7 @@ const TodoTask: React.FC<Props> = ({
             </span>
 
             <button className="editButton" onClick={toggleEdit}>
-              Edit
+              <img src={editIcon} className="editIcon" />
             </button>
 
             {isVisible && (
@@ -134,7 +142,6 @@ const TodoTask: React.FC<Props> = ({
                 {task.taskDate}
               </span>
             )}
-
             {isVisible && (
               <span onClick={toggleEdit} className="todoCompletetionDate">
                 {task.deadline}

@@ -1,6 +1,7 @@
 import React from "react";
 import { ITask } from "./interfaces";
 import "../App.css";
+import checkedBox from "../Assets/CheckedBox.png";
 
 interface CompletedTasksProps {
   completedTasks: ITask[];
@@ -18,16 +19,16 @@ const CompletedTasks: React.FC<CompletedTasksProps> = ({
 
   return (
     <>
-      <div className="tasks ">
+      <div className="tasks">
         <div className="completed-content">
           {completedTasks.map((task) => (
             <div key={task.id}>
-              <span className="todo1">{task.taskName}</span>
+              <span className="completedtodo1">{task.taskName}</span>
               <button
                 className="completeButton"
                 onClick={() => handleRestore(task.id)}
               >
-                Restore
+                <img src={checkedBox} className="checkboxIcon" alt="checkbox" />
               </button>
             </div>
           ))}

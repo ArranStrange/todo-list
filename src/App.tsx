@@ -175,7 +175,6 @@ const App: FC = () => {
               completeTask={completeTask}
             />
           ))}
-        {/* Render the CompletedTasks component and pass completedTasks as a prop */}
         <CompletedTasks
           completedTasks={completedTasks}
           onRestoreTask={restoreTask}
