@@ -153,7 +153,10 @@ const TodoTask: React.FC<Props> = ({
             >
               <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
-            <span className={`urgencyTodo ${urgencyClass}`}>
+            <span
+              className={`urgencyTodo ${urgencyClass}`}
+              onClick={toggleEdit}
+            >
               {task.urgency}
             </span>
 
