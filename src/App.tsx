@@ -10,25 +10,23 @@ const App: FC = () => {
   const [task, setTask] = useState<string>("");
   const [deadline, setDeadline] = useState<string>("");
   const [taskDate, setTaskDate] = useState<string>("");
+  const [urgency, setUrgency] = useState<string>("");
   const [todoList, setTodoList] = useState<ITask[]>([]);
   const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
   const [editingTask, setEditingTask] = useState<string | null>("");
 
   useEffect(() => {
-    const today = new Date().toISOString().split(".")[0]; //gets todays date and time
-    setTaskDate(today); //sets taskDate to todays date and time
+    const today = new Date().toISOString().split(".")[0]; // gets today's date and time
+    setTaskDate(today); // sets taskDate to today's date and time
   }, [todoList]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.name === "task") {
       setTask(event.target.value);
-      //Checks the input elements name is === "task", if so updates to inputted value
     } else if (event.target.name === "deadline") {
-      setDeadline(event.target.value === "" ? "" : event.target.value); // else if Shorthand
-      //Checks the input elements name is === "deadline", if so updates to inputted value
+      setDeadline(event.target.value === "" ? "" : event.target.value);
     } else if (event.target.name === "taskDate") {
       setTaskDate(String(event.target.value));
-      //Checks the input elements name is === "taskDate", if so updates to inputted value
     }
   };
 
@@ -38,53 +36,33 @@ const App: FC = () => {
       taskName: task,
       taskDate: taskDate,
       deadline: deadline,
+      urgency: urgency,
       isCompleted: false,
     };
-    setTodoList([...todoList, newTask]); // CREATES NEW OBJECT WITH INPUTTED DATA
-    setTask(""); // CLEAR TASK STATE
-    setDeadline(""); // CLEAR DEADLINE STATE
-    // console.log(newTask);
+    setTodoList([...todoList, newTask]);
+    setTask("");
+    setDeadline("");
+    setUrgency("Med"); // Set default urgency to "Med"
   };
 
   const toggleEdit = (id: string): void => {
-    setEditingTask(editingTask === id ? null : id); // taskName ? null : taskName === else if statement
-    // editingTask == taskName then in editing mode
-    //if !== then put into editing mode (setEditingTask)
+    setEditingTask(editingTask === id ? null : id);
   };
 
   const updateTask = (id: string, updatedTask: ITask): void => {
     setTodoList((prevTasks) =>
-      prevTasks.map((task) => {
-        console.log(task, id);
-        if (task.id === id) {
-          if (task.taskName !== updatedTask.taskName) {
-            return updatedTask;
-          }
-        }
-        return task;
-      })
+      prevTasks.map((task) => (task.id === id ? updatedTask : task))
     );
-    // iterates over array of tasks in previous state, if taskName === taskName updates with updatedTask creating a new array, if !== keeps task unchanged
-    setEditingTask(""); //resets the state
+    setEditingTask("");
   };
 
   const deleteTask = (taskIdToDelete: string): void => {
-    // Starts updating the todoList when button clicked
-    setTodoList(
-      // Create a new array by keeping only tasks that don't match the taskNameToDelete
-      todoList.filter((task) => {
-        return task.id !== taskIdToDelete; //if task name !== taskNameToDelete, task is kept in new array
-      })
-    );
+    setTodoList(todoList.filter((task) => task.id !== taskIdToDelete));
   };
 
   const deleteCompletedTask = (taskIdToDelete: string): void => {
-    // Starts updating the todoList when button clicked
     setCompletedTasks(
-      // Create a new array by keeping only tasks that don't match the taskNameToDelete
-      completedTasks.filter((task) => {
-        return task.id !== taskIdToDelete; //if task name !== taskNameToDelete, task is kept in new array
-      })
+      completedTasks.filter((task) => task.id !== taskIdToDelete)
     );
   };
 
@@ -97,17 +75,11 @@ const App: FC = () => {
   };
 
   const restoreTask = (taskId: string): void => {
-    // Find the task in completedTasks
     const restoredTask = completedTasks.find((task) => task.id === taskId);
 
     if (restoredTask) {
-      // Add the task back to the todoList array
       setTodoList((prevTodoList) => [...prevTodoList, restoredTask]);
-
-      // Remove the task from completedTasks
-      setCompletedTasks((prevCompletedTasks) =>
-        prevCompletedTasks.filter((task) => task.id !== taskId)
-      );
+      setCompletedTasks(completedTasks.filter((task) => task.id !== taskId));
     }
   };
 
@@ -125,30 +97,24 @@ const App: FC = () => {
     setTodoList((prevTasks) =>
       prevTasks
         .slice()
-        // .reverse()
-        .sort((a, b) => {
-          const dateSetA = new Date(a.taskDate).getTime();
-          const dateSetB = new Date(b.taskDate).getTime();
-          return dateSetA - dateSetB;
-        })
+        .sort(
+          (a, b) =>
+            new Date(a.taskDate).getTime() - new Date(b.taskDate).getTime()
+        )
     );
-    console.log("sort by date running");
   };
 
   const sortByDeadline = (): void => {
     setTodoList((prevTasks) =>
       prevTasks
         .slice()
-        .reverse()
-        .sort((a, b) => {
-          const deadlineA = new Date(a.deadline).getTime();
-          const deadlineB = new Date(b.deadline).getTime();
-          return deadlineA - deadlineB;
-        })
+        .sort(
+          (a, b) =>
+            new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
+        )
     );
   };
 
-  // console.log(completedTasks);
   return (
     <div className="App">
       <div className="header">
@@ -160,24 +126,40 @@ const App: FC = () => {
             placeholder="Task..."
             name="task"
             maxLength={100}
-            value={task} //sets input to the value of task
+            value={task}
             onChange={handleChange}
           />
-          {/* <input
-            type="date"
-            name="taskDate"
-            value={taskDate}
-            onChange={handleChange}
-          /> */}
+          <div className="deadlineTitle">Set Deadline:</div>
+          <div className="urgencyTitle">Set Urgency:</div>
           <input
             type="date"
             placeholder="Completion Date"
             name="deadline"
             className="deadlineInput"
             id="date"
-            value={deadline} //sets input to the value of deadline
+            value={deadline}
             onChange={handleChange}
           />
+          <div className="urgencyToggle">
+            <button
+              className={`urgencyButton ${urgency === "Low" ? "active" : ""}`}
+              onClick={() => setUrgency("Low")}
+            >
+              Low
+            </button>
+            <button
+              className={`urgencyButton ${urgency === "Med" ? "active" : ""}`}
+              onClick={() => setUrgency("Med")}
+            >
+              Med
+            </button>
+            <button
+              className={`urgencyButton ${urgency === "High" ? "active" : ""}`}
+              onClick={() => setUrgency("High")}
+            >
+              High
+            </button>
+          </div>
           <button className="addTaskButton" onClick={addTask}>
             Add
           </button>
@@ -191,25 +173,21 @@ const App: FC = () => {
         </div>
       </div>
       <div className="todoList">
-        {todoList
-          // // .sort()
-          // .slice()
-          .reverse()
-          // .sort()
-          // //add sort instead .slice .reverse
-          .map((task: ITask) => (
-            <TodoTask
-              key={task.id}
-              task={task}
-              deleteTask={deleteTask}
-              editing={editingTask === task.id}
-              toggleEdit={() => toggleEdit(task.id)}
-              updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
-              completeTask={completeTask}
-            />
-          ))}
+        {todoList.map((task: ITask) => (
+          <TodoTask
+            key={task.id}
+            task={task}
+            deleteTask={deleteTask}
+            editing={editingTask === task.id}
+            toggleEdit={() => toggleEdit(task.id)}
+            updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
+            completeTask={completeTask}
+            urgency={urgency}
+          />
+        ))}
         <CompletedTasks
           completedTasks={completedTasks}
+          urgency={urgency}
           onRestoreTask={restoreTask}
           deleteTask={deleteCompletedTask}
         />

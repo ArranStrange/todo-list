@@ -8,12 +8,14 @@ interface CompletedTasksProps {
   completedTasks: ITask[];
   onRestoreTask: (taskId: string) => void;
   deleteTask: (taskNameToDelete: string) => void;
+  urgency: string;
 }
 
 const CompletedTasks: React.FC<CompletedTasksProps> = ({
   completedTasks,
   onRestoreTask,
   deleteTask,
+  urgency,
 }) => {
   const handleRestore = (taskId: string) => {
     // Call the callback function provided by the parent component
@@ -32,6 +34,7 @@ const CompletedTasks: React.FC<CompletedTasksProps> = ({
             >
               <img src={checkedBox} className="checkboxIcon" alt="checkbox" />
             </button>
+            <span className="urgencyTodo">{urgency}</span>
             <button
               className="deleteButton"
               onClick={() => deleteTask(task.id)}

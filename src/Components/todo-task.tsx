@@ -12,6 +12,7 @@ interface Props {
   toggleEdit(): void;
   updateTask(updatedTask: ITask): void;
   completeTask(taskId: string): void;
+  urgency: string;
 }
 
 const TodoTask: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const TodoTask: React.FC<Props> = ({
   toggleEdit,
   updateTask,
   completeTask,
+  urgency,
 }) => {
   const [editedTask, setEditedTask] = useState<ITask>({ ...task });
   const [isVisible, setIsVisible] = useState(false);
@@ -120,6 +122,8 @@ const TodoTask: React.FC<Props> = ({
             >
               <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
+            <span className="urgencyTodo">{urgency}</span>
+
             <span
               className="todo1"
               onClick={() => {
