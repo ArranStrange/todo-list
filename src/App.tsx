@@ -208,7 +208,7 @@ const App: FC = () => {
           </button>
         </div>
         <div className="dropDown">
-          <label>Sort by: </label>
+          <label className="sortByLabel">Sort by: </label>
           <select onChange={handleSortBy}>
             <option value="dateSetNewToOld">Most Recent to Oldest</option>
             <option value="dateSetOldToNew">Oldest to Most Recent</option>

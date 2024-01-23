@@ -390,6 +390,10 @@ input {
   /* border: 2px solid #00ff0d; */
 }
 
+.sortByLabel {
+  margin-bottom: 2px;
+}
+
 /* GLOWING ELEMENTS */
 
 @keyframes glow {
