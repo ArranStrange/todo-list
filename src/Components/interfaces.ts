@@ -3,6 +3,6 @@ export interface ITask {
   taskName: string;
   taskDate: string;
   deadline: string;
-  urgency: string;
+  urgency: "Low" | "Med" | "High";
   isCompleted: boolean;
 }

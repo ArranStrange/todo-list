@@ -10,7 +10,7 @@ const App: FC = () => {
   const [task, setTask] = useState<string>("");
   const [deadline, setDeadline] = useState<string>("");
   const [taskDate, setTaskDate] = useState<string>("");
-  const [urgency, setUrgency] = useState<string>("");
+  const [urgency, setUrgency] = useState<string>("Med");
   const [todoList, setTodoList] = useState<ITask[]>([]);
   const [completedTasks, setCompletedTasks] = useState<ITask[]>([]);
   const [editingTask, setEditingTask] = useState<string | null>("");
@@ -36,7 +36,7 @@ const App: FC = () => {
       taskName: task,
       taskDate: taskDate,
       deadline: deadline,
-      urgency: urgency,
+      urgency: urgency as "Low" | "Med" | "High",
       isCompleted: false,
     };
     setTodoList([...todoList, newTask]);
@@ -91,12 +91,16 @@ const App: FC = () => {
     if (selectedSortOrder === "deadline") {
       sortByDeadline();
     }
+    if (selectedSortOrder === "urgency") {
+      sortByUrgency();
+    }
   };
 
   const sortByDateSet = (): void => {
     setTodoList((prevTasks) =>
       prevTasks
         .slice()
+        .reverse()
         .sort(
           (a, b) =>
             new Date(a.taskDate).getTime() - new Date(b.taskDate).getTime()
@@ -112,6 +116,23 @@ const App: FC = () => {
           (a, b) =>
             new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
         )
+    );
+  };
+
+  const urgencyWeights: Record<"Low" | "Med" | "High", number> = {
+    High: 3,
+    Med: 2,
+    Low: 1,
+  };
+
+  const sortByUrgency = (): void => {
+    setTodoList((prevTasks: ITask[]) =>
+      prevTasks.slice().sort((a: ITask, b: ITask) => {
+        const weightA = urgencyWeights[a.urgency] || 0;
+        const weightB = urgencyWeights[b.urgency] || 0;
+
+        return weightB - weightA; // Sort in descending order of urgency weights
+      })
     );
   };
 
@@ -169,22 +190,26 @@ const App: FC = () => {
           <select onChange={handleSortBy}>
             <option value="dateSet">Date Created</option>
             <option value="deadline">Deadline</option>
+            <option value="urgency">Urgency</option>
           </select>
         </div>
       </div>
       <div className="todoList">
-        {todoList.map((task: ITask) => (
-          <TodoTask
-            key={task.id}
-            task={task}
-            deleteTask={deleteTask}
-            editing={editingTask === task.id}
-            toggleEdit={() => toggleEdit(task.id)}
-            updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
-            completeTask={completeTask}
-            urgency={task.urgency}
-          />
-        ))}
+        {todoList
+          .slice()
+          .reverse()
+          .map((task: ITask) => (
+            <TodoTask
+              key={task.id}
+              task={task}
+              deleteTask={deleteTask}
+              editing={editingTask === task.id}
+              toggleEdit={() => toggleEdit(task.id)}
+              updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
+              completeTask={completeTask}
+              urgency={task.urgency}
+            />
+          ))}
         <CompletedTasks
           completedTasks={completedTasks}
           urgency={urgency}
