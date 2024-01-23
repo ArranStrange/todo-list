@@ -85,8 +85,11 @@ const App: FC = () => {
 
   const handleSortBy = (event: ChangeEvent<HTMLSelectElement>): void => {
     const selectedSortOrder = event.target.value;
-    if (selectedSortOrder === "dateSet") {
-      sortByDateSet();
+    if (selectedSortOrder === "dateSetNewToOld") {
+      sortByDateSetNewToOld();
+    }
+    if (selectedSortOrder === "dateSetOldToNew") {
+      sortByDateSetOldtoNew();
     }
     if (selectedSortOrder === "deadline") {
       sortByDeadline();
@@ -96,11 +99,21 @@ const App: FC = () => {
     }
   };
 
-  const sortByDateSet = (): void => {
+  const sortByDateSetNewToOld = (): void => {
     setTodoList((prevTasks) =>
       prevTasks
         .slice()
-        .reverse()
+        // .reverse()
+        .sort(
+          (a, b) =>
+            new Date(b.taskDate).getTime() - new Date(a.taskDate).getTime()
+        )
+    );
+  };
+  const sortByDateSetOldtoNew = (): void => {
+    setTodoList((prevTasks) =>
+      prevTasks
+        .slice()
         .sort(
           (a, b) =>
             new Date(a.taskDate).getTime() - new Date(b.taskDate).getTime()
@@ -127,12 +140,15 @@ const App: FC = () => {
 
   const sortByUrgency = (): void => {
     setTodoList((prevTasks: ITask[]) =>
-      prevTasks.slice().sort((a: ITask, b: ITask) => {
-        const weightA = urgencyWeights[a.urgency] || 0;
-        const weightB = urgencyWeights[b.urgency] || 0;
+      prevTasks
+        .slice()
+        .reverse()
+        .sort((a: ITask, b: ITask) => {
+          const weightA = urgencyWeights[a.urgency] || 0;
+          const weightB = urgencyWeights[b.urgency] || 0;
 
-        return weightB - weightA; // Sort in descending order of urgency weights
-      })
+          return weightB - weightA; // Sort in descending order of urgency weights
+        })
     );
   };
 
@@ -194,28 +210,26 @@ const App: FC = () => {
         <div className="dropDown">
           <label>Sort by: </label>
           <select onChange={handleSortBy}>
-            <option value="dateSet">Date Created</option>
+            <option value="dateSetNewToOld">Most Recent to Oldest</option>
+            <option value="dateSetOldToNew">Oldest to Most Recent</option>
             <option value="deadline">Deadline</option>
             <option value="urgency">Urgency</option>
           </select>
         </div>
       </div>
       <div className="todoList">
-        {todoList
-          .slice()
-          .reverse()
-          .map((task: ITask) => (
-            <TodoTask
-              key={task.id}
-              task={task}
-              deleteTask={deleteTask}
-              editing={editingTask === task.id}
-              toggleEdit={() => toggleEdit(task.id)}
-              updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
-              completeTask={completeTask}
-              urgency={task.urgency}
-            />
-          ))}
+        {todoList.slice().map((task: ITask) => (
+          <TodoTask
+            key={task.id}
+            task={task}
+            deleteTask={deleteTask}
+            editing={editingTask === task.id}
+            toggleEdit={() => toggleEdit(task.id)}
+            updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
+            completeTask={completeTask}
+            urgency={task.urgency}
+          />
+        ))}
         <CompletedTasks
           completedTasks={completedTasks}
           urgency={urgency}
