@@ -101,6 +101,7 @@
 }
 .deadlineInput {
   grid-column: 1 / 2 span;
+  width: 100%;
   /* border: 2px solid #db3434; */
 }
 
