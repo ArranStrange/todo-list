@@ -1,25 +1,25 @@
 .App {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-color: #24262e;
   margin: -8px;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #24262e;
   font-family: "Prompt";
+  /* border: 2px solid #db3434; */
 }
 
 .header-image {
+  display: flex;
   width: 250px;
   padding-top: 20px;
+  /* border: 2px solid #db3434; */
 }
 
 .header {
   display: flex;
-  height: 300px;
+  height: 250px;
+  margin: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -29,7 +29,7 @@
 
 .header .inputContainer {
   display: grid;
-  width: 400px;
+  width: 90%;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: center;
   flex-wrap: wrap;
@@ -110,8 +110,8 @@
   grid-column: 3 / 1 span;
   display: flex;
   justify-content: space-evenly;
-  border: 1px solid rgb(180, 180, 180);
-  border-radius: 20px;
+  border: 1.5px solid rgb(180, 180, 180);
+  border-radius: 15px;
   width: 99%;
 }
 
@@ -119,7 +119,6 @@
   background-color: #24262e;
   color: rgb(180, 180, 180);
   border-radius: 15px;
-  width: fit-content;
   transition: background-color 0.7s, color 0.5s;
 }
 
@@ -130,8 +129,20 @@
 }
 
 .urgencyButton:hover {
-  transition: box-shadow 0.1s;
-  animation: glow 1s forwards;
+  /* animation: glow 1s forwards; */
+}
+
+.low.active {
+  background-color: #7cbf00;
+  transition: 1s;
+}
+.med.active {
+  background-color: #ff9800;
+  transition: 1s;
+}
+.high.active {
+  background-color: #850400;
+  transition: 1s;
 }
 
 /* TODO LIST */
@@ -140,7 +151,7 @@
   display: flex;
   flex-direction: column;
   height: 320px;
-  width: 99%;
+  width: 100%;
   /* overflow-y: scroll; */
   overflow-x: scroll;
   background-color: #24262e;
@@ -184,7 +195,7 @@ option {
 
 .task {
   display: flex;
-  width: 95%;
+  width: 100%;
   color: rgb(180, 180, 180);
   justify-content: center;
   align-items: start;
@@ -196,7 +207,7 @@ option {
 
 .content {
   display: grid;
-  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  grid-template-columns: 0.5fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
   height: fit-content;
   gap: 3px;
   width: 90%;
@@ -212,6 +223,8 @@ option {
   width: fit-content;
   font-size: 10px;
   font-weight: 100;
+  margin-bottom: 5px;
+  margin-left: 60px;
   border-bottom: 2px solid #7c7d83;
 }
 
@@ -243,12 +256,27 @@ span:hover {
   background-color: #31333b;
   color: #efeeec;
   font-weight: 200;
-  /* border: 2px solid #
-  3498db; */
+  /* border: 2px solid #3498db; */
 }
 
 .urgencyTodo {
   grid-column: 2 / 1 span;
+  align-items: center;
+  border-radius: 50px;
+  margin-right: 3px;
+}
+.urgencytTodoEditToggle {
+  background-color: #efeeec;
+  color: #31333b;
+  height: 100%;
+  width: 50px;
+}
+
+.low {
+}
+.med {
+}
+.high {
 }
 
 button {
@@ -275,7 +303,7 @@ button {
   font-size: 15px;
   font-family: "Prompt";
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   background-color: #24262e;
   color: #24262e;
 }
@@ -310,7 +338,7 @@ input {
 }
 
 .todoEditInput {
-  grid-column: 2 / 8 span;
+  grid-column: 3 / 7 span;
   height: 40px;
   /* max-width: 400px; */
 }

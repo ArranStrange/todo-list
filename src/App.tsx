@@ -163,19 +163,25 @@ const App: FC = () => {
           />
           <div className="urgencyToggle">
             <button
-              className={`urgencyButton ${urgency === "Low" ? "active" : ""}`}
+              className={`urgencyButton low ${
+                urgency === "Low" ? "active" : ""
+              }`}
               onClick={() => setUrgency("Low")}
             >
               Low
             </button>
             <button
-              className={`urgencyButton ${urgency === "Med" ? "active" : ""}`}
+              className={`urgencyButton med ${
+                urgency === "Med" ? "active" : ""
+              }`}
               onClick={() => setUrgency("Med")}
             >
               Med
             </button>
             <button
-              className={`urgencyButton ${urgency === "High" ? "active" : ""}`}
+              className={`urgencyButton high ${
+                urgency === "High" ? "active" : ""
+              }`}
               onClick={() => setUrgency("High")}
             >
               High

@@ -34,10 +34,21 @@ const TodoTask: React.FC<Props> = ({
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
-    setEditedTask((prevTask) => ({
-      ...prevTask,
-      [name]: value,
-    }));
+
+    // If the name is "urgency," update urgency immediately
+    if (name === "urgency") {
+      const nextUrgency: string = value;
+      setEditedTask((prevTask) => ({
+        ...prevTask,
+        urgency: nextUrgency as "Low" | "Med" | "High",
+      }));
+    } else {
+      // Otherwise, update other fields
+      setEditedTask((prevTask) => ({
+        ...prevTask,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSave = (): void => {
@@ -49,6 +60,20 @@ const TodoTask: React.FC<Props> = ({
     setIsCompleted((prevIsCompleted) => !prevIsCompleted); // Toggle completion state
     completeTask(task.id);
   };
+
+  const handleUrgencyToggle = (): void => {
+    const urgencies: string[] = ["Low", "Med", "High"];
+    const currentIndex = urgencies.indexOf(editedTask.urgency);
+    const nextIndex = (currentIndex + 1) % urgencies.length;
+    const nextUrgency: string = urgencies[nextIndex];
+
+    setEditedTask((prevTask) => ({
+      ...prevTask,
+      urgency: nextUrgency as "Low" | "Med" | "High",
+    }));
+  };
+
+  const urgencyClass = urgency.toLowerCase();
 
   return (
     <div className="task">
@@ -64,6 +89,12 @@ const TodoTask: React.FC<Props> = ({
               }}
             >
               <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
+            </button>
+            <button
+              className="urgencyTodo urgencytTodoEditToggle"
+              onClick={handleUrgencyToggle}
+            >
+              {editedTask.urgency}
             </button>
             <input
               type="text"
@@ -122,7 +153,9 @@ const TodoTask: React.FC<Props> = ({
             >
               <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
-            <span className="urgencyTodo">{urgency}</span>
+            <span className={`urgencyTodo ${urgencyClass}`}>
+              {task.urgency}
+            </span>
 
             <span
               className="todo1"
