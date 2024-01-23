@@ -41,7 +41,7 @@ const App: FC = () => {
     };
     setTodoList([...todoList, newTask]);
     setTask("");
-    setDeadline("");
+    setDeadline("Null");
     setUrgency("Med"); // Set default urgency to "Med"
   };
 
@@ -182,7 +182,7 @@ const App: FC = () => {
             toggleEdit={() => toggleEdit(task.id)}
             updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
             completeTask={completeTask}
-            urgency={urgency}
+            urgency={task.urgency}
           />
         ))}
         <CompletedTasks
