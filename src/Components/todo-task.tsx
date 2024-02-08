@@ -1,5 +1,9 @@
 import React, { useState, ChangeEvent } from "react";
 import { ITask } from "./interfaces";
+import editIcon from "../Assets/4.png";
+import binIcon from "../Assets/3.png";
+import closeIcon from "../Assets/closeIcon.png";
+import uncheckedBox from "../Assets/uncheckedBox.png";
 
 interface Props {
   task: ITask;
@@ -8,6 +12,7 @@ interface Props {
   toggleEdit(): void;
   updateTask(updatedTask: ITask): void;
   completeTask(taskId: string): void;
+  urgency: string;
 }
 
 const TodoTask: React.FC<Props> = ({
@@ -17,6 +22,7 @@ const TodoTask: React.FC<Props> = ({
   toggleEdit,
   updateTask,
   completeTask,
+  urgency,
 }) => {
   const [editedTask, setEditedTask] = useState<ITask>({ ...task });
   const [isVisible, setIsVisible] = useState(false);
@@ -28,10 +34,21 @@ const TodoTask: React.FC<Props> = ({
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target;
-    setEditedTask((prevTask) => ({
-      ...prevTask,
-      [name]: value,
-    }));
+
+    // If the name is "urgency," update urgency immediately
+    if (name === "urgency") {
+      const nextUrgency: string = value;
+      setEditedTask((prevTask) => ({
+        ...prevTask,
+        urgency: nextUrgency as "Low" | "Med" | "High",
+      }));
+    } else {
+      // Otherwise, update other fields
+      setEditedTask((prevTask) => ({
+        ...prevTask,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSave = (): void => {
@@ -44,15 +61,23 @@ const TodoTask: React.FC<Props> = ({
     completeTask(task.id);
   };
 
+  const handleUrgencyToggle = (): void => {
+    const urgencies: string[] = ["Low", "Med", "High"];
+    const currentIndex = urgencies.indexOf(editedTask.urgency);
+    const nextIndex = (currentIndex + 1) % urgencies.length;
+    const nextUrgency: string = urgencies[nextIndex];
+
+    setEditedTask((prevTask) => ({
+      ...prevTask,
+      urgency: nextUrgency as "Low" | "Med" | "High",
+    }));
+  };
+
+  const urgencyClass = urgency.toLowerCase();
+
   return (
-    <div className={`tasks ${isCompleted ? "completed" : ""}`}>
-      <div
-        className="content"
-        data-created={task.taskDate}
-        // onBlur={() => {
-        //   handleIsVisible();
-        // }}
-      >
+    <div className="task">
+      <div className="content" data-created={editedTask.taskDate.split("T")}>
         {/* STATE ON EDIT */}
         {editing ? (
           <>
@@ -63,7 +88,7 @@ const TodoTask: React.FC<Props> = ({
                 handleIsVisible();
               }}
             >
-              Complete Task
+              <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
             <input
               type="text"
@@ -77,49 +102,60 @@ const TodoTask: React.FC<Props> = ({
               // }}
             />
             <button
-              className="editButton"
-              onClick={() => {
-                // toggleEdit();
-                // handleIsVisible();
-                handleSave();
-              }}
+              className="urgencyTodo urgencytTodoEditToggle"
+              onClick={handleUrgencyToggle}
             >
-              Save
+              {editedTask.urgency}
+            </button>
+            <button className="editButton" onClick={handleSave}>
+              <img src={closeIcon} alt="save icon" className="editIcon" />
             </button>
 
-            <input
-              type="date"
-              name="taskDate"
-              className="todoDateSet"
-              value={editedTask.taskDate}
-              onChange={handleChange}
-              // onBlur={handleSave}
-            />
-
-            <input
-              type="date"
-              name="deadline"
-              className="todoCompletetionDate"
-              value={editedTask.deadline}
-              onChange={handleChange}
-              // onBlur={handleSave}
-            />
+            {/* <fieldset className="setDate">
+              <label>Date Set:</label>
+              <input
+                type="date"
+                name="taskDate"
+                className="todoDateSet"
+                value={editedTask.taskDate}
+                onChange={handleChange}
+                // onBlur={handleSave}
+              />
+            </fieldset> */}
+            <fieldset className="DeadlineDate">
+              <label>Update Deadline:</label>
+              <input
+                type="date"
+                name="deadline"
+                className="todoCompletetionDate"
+                value={editedTask.deadline}
+                onChange={handleChange}
+                // onBlur={handleSave}
+              />
+            </fieldset>
 
             <button
               className="deleteButton"
-              onClick={() => deleteTask(task.taskName)}
+              onClick={() => deleteTask(task.id)}
             >
-              X
+              <img src={binIcon} alt="Bin icon" className="binIcon" />
             </button>
           </>
         ) : (
           // NORMAL STATE
           <>
-            <button className="completeButton" onClick={handleComplete}>
-              Complete Task
+            <button
+              className="completeButton"
+              onClick={() => {
+                handleComplete();
+                handleIsVisible();
+              }}
+            >
+              <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
+
             <span
-              className={`todo1 ${isCompleted ? "completed" : ""}`}
+              className="todo1"
               onClick={() => {
                 toggleEdit();
               }}
@@ -131,8 +167,15 @@ const TodoTask: React.FC<Props> = ({
               {task.taskName}
             </span>
 
+            <span
+              className={`urgencyTodo ${urgencyClass}`}
+              onClick={toggleEdit}
+            >
+              {task.urgency}
+            </span>
+
             <button className="editButton" onClick={toggleEdit}>
-              Edit
+              <img src={editIcon} className="editIcon" alt="Edit icon" />
             </button>
 
             {isVisible && (
@@ -140,7 +183,6 @@ const TodoTask: React.FC<Props> = ({
                 {task.taskDate}
               </span>
             )}
-
             {isVisible && (
               <span onClick={toggleEdit} className="todoCompletetionDate">
                 {task.deadline}

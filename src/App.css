@@ -1,26 +1,25 @@
 .App {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  width: 100vw;
-  /* min-width: 300px; */
-  height: 100vh;
-  overflow: hidden;
-  background-color: #24262e;
   margin: -8px;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: #24262e;
   font-family: "Prompt";
+  /* border: 2px solid #db3434; */
 }
 
 .header-image {
+  display: flex;
   width: 250px;
   padding-top: 20px;
+  /* border: 2px solid #db3434; */
 }
 
 .header {
   display: flex;
-  height: 300px;
+  height: 250px;
+  margin: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -30,8 +29,8 @@
 
 .header .inputContainer {
   display: grid;
-  width: 400px;
-  grid-template-columns: repeat(auto-fill, minmax(2, 1fr));
+  width: 90%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-content: center;
   flex-wrap: wrap;
   padding-top: 20px;
@@ -60,32 +59,91 @@
   color: #efeeec;
 }
 
+.deadlineTitle {
+  grid-column: 1 / 2 span;
+  background-color: #24262e;
+  color: #efeeec;
+  padding-left: 10px;
+  justify-content: start;
+  align-items: center;
+  height: 12px;
+  font-weight: 100;
+  font-size: 10px;
+}
+.urgencyTitle {
+  grid-column: 3 / 1 span;
+  background-color: #24262e;
+  color: #efeeec;
+  padding-left: 10px;
+  justify-content: start;
+  align-items: center;
+  height: 12px;
+  font-weight: 100;
+  font-size: 10px;
+}
 .addTaskButton {
-  grid-column: 4 / 0.5 span;
-  height: 100%;
+  grid-column: 4 / 2 span;
+  justify-content: center;
   width: 100%;
-  margin-left: 22px;
   background-color: #f27853;
   color: #24262e;
   font-weight: 900;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .deadlineInput:before {
-  content: "Deadline: ";
-  font-size: 15px;
+  /* content: "Deadline: "; */
+  font-size: 10px;
   font-weight: 200;
   /* left: 20%; */
   /* border-bottom: 2px solid #7c7d83; */
 }
 .deadlineInput {
-  grid-column: 1 / 3.5 span;
-  align-items: center;
-  /* @media screen {
-    height: 35px;
-  } */
+  grid-column: 1 / 2 span;
+  width: 100%;
   /* border: 2px solid #db3434; */
+}
+
+/* Slider */
+
+.urgencyToggle {
+  grid-column: 3 / 1 span;
+  display: flex;
+  justify-content: space-evenly;
+  border: 1.5px solid rgb(180, 180, 180);
+  border-radius: 15px;
+  width: 100%;
+}
+
+.urgencyButton {
+  background-color: #24262e;
+  color: rgb(180, 180, 180);
+  border-radius: 15px;
+  transition: background-color 0.7s, color 0.5s;
+}
+
+.urgencyButton.active {
+  background-color: rgb(180, 180, 180);
+  color: #24262e;
+  transition: background-color 0.7s, color 0.5s;
+}
+
+.urgencyButton:hover {
+  /* animation: glow 1s forwards; */
+}
+
+.low.active {
+  background-color: #7cbf00;
+  transition: 1s;
+}
+.med.active {
+  background-color: #ff9800;
+  transition: 1s;
+}
+.high.active {
+  background-color: #ff0800;
+  transition: 1s;
 }
 
 /* TODO LIST */
@@ -94,15 +152,51 @@
   display: flex;
   flex-direction: column;
   height: 320px;
+  width: 100%;
   /* overflow-y: scroll; */
+  overflow-x: scroll;
   background-color: #24262e;
+  color: #efeeec;
+  font-family: "Prompt";
+  font-weight: 200;
   z-index: 1;
   /* border: 2px solid #db3434; */
 }
 
-.tasks {
+/* DROP DOWN */
+.dropDown {
   display: flex;
-  width: 95%;
+  justify-content: center;
+  align-items: center;
+  color: #efeeec;
+  border: none;
+  padding-top: 20px;
+  /* border: 2px solid #db3434; */
+}
+
+Select {
+  justify-content: center;
+  align-items: start;
+  color: rgb(180, 180, 180);
+  font-size: 15px;
+  background-color: #24262e;
+  border-radius: 10px;
+  padding: 5px;
+  border: none;
+}
+
+option {
+  justify-content: center;
+  align-items: start;
+  color: rgb(180, 180, 180);
+  background-color: #24262e;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.task {
+  display: flex;
+  width: 100%;
   color: rgb(180, 180, 180);
   justify-content: center;
   align-items: start;
@@ -114,32 +208,30 @@
 
 .content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr 0.5fr;
   height: fit-content;
-  gap: 10px;
-  width: 80%;
+  gap: 3px;
+  width: 90%;
   justify-content: center;
   align-items: start;
   border-radius: 10px;
-  /* margin-bottom: 20px; */
   /* border: 2px solid #00ff0d; */
-  /* padding: 20px; */
-  /* border-bottom: 2px solid #7c7d83; */
 }
 
 .content:before {
   content: "Date Created: " attr(data-created);
-  left: 20%;
-  width: 175%;
-  font-size: 13px;
+  grid-column: 2 / span 10;
+  width: fit-content;
+  font-size: 10px;
   font-weight: 100;
+  margin-bottom: 5px;
+  margin-left: 60px;
   border-bottom: 2px solid #7c7d83;
 }
 
 span {
   display: flex;
-  /* grid-row: 2 / 1 span; */
-  grid-column: 2 span;
+  grid-row: 2 / 8 span;
   height: 30px;
   font-size: 15px;
   align-items: start;
@@ -158,9 +250,9 @@ span:hover {
 
 /* TODO CONTENT */
 .todo1 {
-  grid-column: 2 / 8 span;
+  grid-column: 2 / 7 span;
   font-size: 20px;
-  overflow: scroll;
+  /* overflow: scroll; */
   text-overflow: ellipsis;
   background-color: #31333b;
   color: #efeeec;
@@ -168,15 +260,38 @@ span:hover {
   /* border: 2px solid #3498db; */
 }
 
+/* TILTES */
+
+.urgencyTodo {
+  grid-column: 9 / 1 span;
+  align-items: center;
+  border-radius: 50px;
+  margin-right: 3px;
+}
+.urgencytTodoEditToggle {
+  background-color: #efeeec;
+  color: #31333b;
+  height: 100%;
+  width: 50px;
+}
+
+.low {
+}
+.med {
+}
+.high {
+}
+
 button {
-  background-color: #28403c;
+  color: #efeeec;
   color: #24262e;
   border: none;
-  height: 35px;
-  width: 95%;
+  /* height: 35px; */
+  width: 30px;
+  padding: 5px;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
   font-weight: 500;
   /* border: 2px solid #3498db; */
@@ -186,42 +301,36 @@ button {
   display: flex;
   grid-column: 1 / span 1;
   height: 50px;
-  width: 100%;
+  width: 50px;
+  border-radius: 50px;
   font-size: 15px;
   font-family: "Prompt";
   align-items: center;
-  justify-content: center;
-  background-color: #ebe6e2;
+  justify-content: end;
+  background-color: #24262e;
   color: #24262e;
 }
 
 .editButton {
   display: flex;
-  grid-column: 4 / span 0.5;
+  grid-column: 10 / span 1;
   height: 50px;
-  width: 100%;
+  width: 50px;
+  border-radius: 50px;
   font-size: 15px;
   font-family: "Prompt";
   align-items: center;
   justify-content: center;
-  background-color: #ebe6e2;
-  color: #24262e;
-}
-
-button:hover {
-  transition: box-shadow 0.1s;
-  animation: glow 1s forwards;
+  background-color: #24262e;
 }
 
 /* TODO EDIT */
 
 input {
-  display: flex;
-  /* grid-row: 2 / 1 span; */
-  grid-column: 1 span;
   /* height: 30px; */
   font-size: 15px;
   /* align-items: start; */
+  /* width: 95%; */
   justify-content: space-evenly;
   /* font-weight: 100; */
   font-family: "Prompt";
@@ -232,21 +341,32 @@ input {
 }
 
 .todoEditInput {
-  grid-column: 2 / 8 span;
+  grid-column: 2 / 7 span;
   height: 40px;
-  max-width: 100%;
-  overflow: hidden;
+  /* max-width: 400px; */
+}
+
+.setDate {
+  grid-column: 4 / span 3;
+  font-size: 12px;
+  color: #efeeec;
+  border: none;
+  margin-top: -10px;
 }
 .todoDateSet {
-  grid-column: 1 / span 3;
-  /* height: 25px; */
   background-color: #bedad9;
   color: #31333b;
   font-weight: 500;
 }
+
+.DeadlineDate {
+  grid-column: 7 / span 3;
+  font-size: 12px;
+  color: #efeeec;
+  border: none;
+  margin-top: -10px;
+}
 .todoCompletetionDate {
-  grid-column: 4 / span 6;
-  /* height: 25px; */
   background-color: #bedad9;
   color: #31333b;
   font-weight: 500;
@@ -255,19 +375,25 @@ input {
 .deleteButton {
   display: flex;
   grid-column: 10 / span 1;
-  height: 100%;
-  width: 100%;
+  height: 100px;
+  width: 50px;
+  /* border-radius: 30px; */
   font-size: 15px;
   font-family: "Prompt";
   align-items: center;
   justify-content: center;
-  background-color: #f17853;
-  color: #24262e;
+  background-color: #24262e;
 }
 
 /* IS COMPLETED STATE */
-.tasks.completed {
+
+.completedContent {
   opacity: 0.5;
+  /* border: 2px solid #00ff0d; */
+}
+
+.sortByLabel {
+  margin-bottom: 2px;
 }
 
 /* GLOWING ELEMENTS */
@@ -282,4 +408,44 @@ input {
   100% {
     box-shadow: 0 0 7px #85c0b8; /* Final shadow color and size */
   }
+}
+
+/* ICONS */
+
+.editIcon {
+  height: 40px;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+}
+.editIcon:hover {
+  filter: invert(0%) sepia(0%) saturate(6692%) hue-rotate(320deg)
+    brightness(90%) contrast(107%);
+}
+
+.binIcon {
+  height: 35px;
+  width: 35px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+}
+
+.binIcon:hover {
+  filter: invert(20%) sepia(30%) saturate(6692%) hue-rotate(320deg)
+    brightness(90%) contrast(107%);
+}
+
+.checkboxIcon {
+  height: 35px;
+  width: 35px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+}
+
+.checkboxIcon:hover {
+  filter: invert(30%) sepia(36%) saturate(300%) hue-rotate(71deg)
+    brightness(100%) contrast(93%);
 }
