@@ -90,12 +90,6 @@ const TodoTask: React.FC<Props> = ({
             >
               <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
-            <button
-              className="urgencyTodo urgencytTodoEditToggle"
-              onClick={handleUrgencyToggle}
-            >
-              {editedTask.urgency}
-            </button>
             <input
               type="text"
               name="taskName"
@@ -107,6 +101,12 @@ const TodoTask: React.FC<Props> = ({
               //   handleIsVisible();
               // }}
             />
+            <button
+              className="urgencyTodo urgencytTodoEditToggle"
+              onClick={handleUrgencyToggle}
+            >
+              {editedTask.urgency}
+            </button>
             <button className="editButton" onClick={handleSave}>
               <img src={closeIcon} alt="save icon" className="editIcon" />
             </button>
@@ -153,12 +153,6 @@ const TodoTask: React.FC<Props> = ({
             >
               <img src={uncheckedBox} className="checkboxIcon" alt="checkbox" />
             </button>
-            <span
-              className={`urgencyTodo ${urgencyClass}`}
-              onClick={toggleEdit}
-            >
-              {task.urgency}
-            </span>
 
             <span
               className="todo1"
@@ -171,6 +165,13 @@ const TodoTask: React.FC<Props> = ({
               // }}
             >
               {task.taskName}
+            </span>
+
+            <span
+              className={`urgencyTodo ${urgencyClass}`}
+              onClick={toggleEdit}
+            >
+              {task.urgency}
             </span>
 
             <button className="editButton" onClick={toggleEdit}>
